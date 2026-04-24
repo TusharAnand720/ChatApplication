@@ -5,7 +5,7 @@ import java.time.Instant;
 public class ServiceHelper {
 
     public static boolean isAvailable(String str){
-        return true;
+        return str != null && !str.isBlank();
     }
 
     public static String getRandomAlphaNumeric(int length) {

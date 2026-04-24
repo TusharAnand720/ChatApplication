@@ -26,11 +26,6 @@ public class ServiceException extends RuntimeException {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
     public void setMessage(String message) {
         this.message = message;
     }
