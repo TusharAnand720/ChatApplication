@@ -1,0 +1,30 @@
+package chatapp.utility.helper;
+
+import java.time.Instant;
+
+public class ServiceHelper {
+
+    public String getRandomAlphaNumeric(int length) {
+        String alphaNumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        if (length > 30) {
+            length = 30;
+        }
+        StringBuilder randomAlphaNumeric = new StringBuilder();
+        while (length-- > 0) {
+            int randomCharPosition = (int) (Math.random() * alphaNumeric.length());
+            char randomCharacter = alphaNumeric.charAt(randomCharPosition);
+            randomAlphaNumeric.append(randomCharacter);
+        }
+        return randomAlphaNumeric.toString();
+    }
+
+    public String createId(String prefix) {
+        try {
+            return prefix.toUpperCase() + Instant.now().toEpochMilli() + getRandomAlphaNumeric(10);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+}

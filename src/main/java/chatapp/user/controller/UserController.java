@@ -1,15 +1,12 @@
 package chatapp.user.controller;
 
-import authorization.lib.model.AuthToken;
 import authorization.lib.model.JwtClaims;
 import authorization.lib.service.AuthService;
 
 import chatapp.dbManager.entity.User;
-import chatapp.dbManager.mongoDbManager.MongoConfig;
 import chatapp.dbManager.service.UserService;
 import chatapp.user.entity.RegistrationPayload;
-import chatapp.utility.response.ServiceResponse;
-import com.mongodb.client.MongoClient;
+import chatapp.middleware.ServiceResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -58,7 +55,7 @@ public class UserController {
             return ServiceResponse.Success(result);
         } catch (Exception e) {
             e.printStackTrace();
-            return ServiceResponse.Failed(e.getMessage());
+            return ServiceResponse.BadRequest(e.getMessage());
         }
     }
 
@@ -74,7 +71,7 @@ public class UserController {
             return ServiceResponse.Success(response);
         } catch (Exception e) {
             e.printStackTrace();
-            return ServiceResponse.Failed(e.getMessage());
+            return ServiceResponse.BadRequest(e.getMessage());
         }
     }
 }
