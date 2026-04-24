@@ -7,6 +7,8 @@ import chatapp.dbManager.table.user.TableUser;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.user.entity.RegistrationPayload;
+import chatapp.validation.BaseValidator;
+import chatapp.validation.ServiceError;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
@@ -26,6 +28,11 @@ public class RegistrationHandler implements APIRequest {
     @Override
     public ResponseEntity<?> doProcess() {
         try {
+
+            validateRequest(registrationPayload);
+
+            userExists(registrationPayload.getEmail());
+
             ItemUser itemUser = tableUser.createItem("ED");
             itemUser.setEmail(registrationPayload.getEmail());
             itemUser.setPassword(registrationPayload.getPassword());
@@ -39,10 +46,20 @@ public class RegistrationHandler implements APIRequest {
             result.put("user",itemUser);
             result.put("authToken" , authToken);
 
-           return ServiceResponse.Success(result);
-
+            return ServiceResponse.Success(result);
         }catch (Exception e){
             return ServiceResponse.BadRequest(e.getMessage()) ;
         }
+    }
+
+    private void userExists(String email){
+        ItemUser user = tableUser.getUserByEmail(email);
+        BaseValidator.throwExceptionIfTrue(user!=null, ServiceError.ServiceError_user_already_exists_with_email.getMessage());
+    }
+    private void validateRequest(RegistrationPayload registrationPayload)throws Exception{
+        BaseValidator.throwExceptionIfNotAvailable(registrationPayload.getEmail(), ServiceError.ServiceError_invalid_email.getMessage());
+        BaseValidator.throwExceptionIfNotAvailable(registrationPayload.getPassword(), ServiceError.ServiceError_invalid_password.getMessage());
+        BaseValidator.throwExceptionIfNotAvailable(registrationPayload.getFirstName(), ServiceError.ServiceError_invalid_firstName.getMessage());
+
     }
 }
