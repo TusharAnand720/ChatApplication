@@ -3,10 +3,11 @@ package chatapp.user.controller;
 import authorization.lib.model.JwtClaims;
 import authorization.lib.service.AuthService;
 
-import chatapp.dbManager.entity.User;
-import chatapp.dbManager.service.UserService;
+import chatapp.dbManager.table.user.TableUser;
+import chatapp.middleware.APIRequest;
 import chatapp.user.entity.RegistrationPayload;
 import chatapp.middleware.ServiceResponse;
+import chatapp.user.service.RegistrationHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,35 +27,17 @@ public class UserController {
     private AuthService authService;
 
     @Autowired
-    private UserService userService;
+    private TableUser tableUser;
 
     //
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> register(@RequestBody RegistrationPayload registrationPayload) {
         try {
 
+            APIRequest apiRequest = new RegistrationHandler(authService,tableUser,registrationPayload);
+            return apiRequest.doProcess();
 
-//            System.out.println("Registering user");
-//            AuthToken authToken = authService.issueToken("USER-TUSHAR");
-//            System.out.println("Token issued : " + authToken.getRawToken());
-//            HashMap<String, Object> response = new HashMap<>();
-//            response.put("authToken", authToken);
-//            return ServiceResponse.Success(response);
-            
-            User user = new User();
-            user.setUserId("User-Tushar");
-            user.setFirstName(registrationPayload.getFirstName());
-            user.setLastName(registrationPayload.getLastName());
-            user.setEmail(registrationPayload.getEmail());
-            user.setPassword(registrationPayload.getPassword());
-
-            userService.createUser(user);
-
-            HashMap<String, Object> result = new HashMap<>();
-            result.put("user", user);
-            return ServiceResponse.Success(result);
         } catch (Exception e) {
-            e.printStackTrace();
             return ServiceResponse.BadRequest(e.getMessage());
         }
     }
@@ -70,7 +53,6 @@ public class UserController {
             response.put("claims", jwtClaims);
             return ServiceResponse.Success(response);
         } catch (Exception e) {
-            e.printStackTrace();
             return ServiceResponse.BadRequest(e.getMessage());
         }
     }

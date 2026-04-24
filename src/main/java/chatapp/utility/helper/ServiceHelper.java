@@ -4,7 +4,7 @@ import java.time.Instant;
 
 public class ServiceHelper {
 
-    public String getRandomAlphaNumeric(int length) {
+    public static String getRandomAlphaNumeric(int length) {
         String alphaNumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         if (length > 30) {
             length = 30;
@@ -18,7 +18,7 @@ public class ServiceHelper {
         return randomAlphaNumeric.toString();
     }
 
-    public String createId(String prefix) {
+    public static String createId(String prefix) {
         try {
             return prefix.toUpperCase() + Instant.now().toEpochMilli() + getRandomAlphaNumeric(10);
         } catch (Exception e) {

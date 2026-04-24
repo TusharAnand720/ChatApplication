@@ -1,12 +1,12 @@
-package chatapp.dbManager.entity;
+package chatapp.dbManager.table.user;
 
+import chatapp.dbManager.table.AuditFields;
+import chatapp.utility.helper.ServiceHelper;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.lang.annotation.Documented;
-
 @Document(collection = "User")
-public class User {
+public class ItemUser extends AuditFields {
 
     @Id
     private String userId;
@@ -14,6 +14,13 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+
+    //
+
+    public ItemUser(String createdBy){
+        super(createdBy,System.currentTimeMillis());
+        this.userId = ServiceHelper.createId("USR");
+    }
 
     public String getUserId() {
         return userId;

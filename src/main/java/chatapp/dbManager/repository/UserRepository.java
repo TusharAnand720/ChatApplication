@@ -1,10 +1,10 @@
 package chatapp.dbManager.repository;
 
-import chatapp.dbManager.entity.User;
+import chatapp.dbManager.table.user.ItemUser;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, String> {
+public interface UserRepository extends MongoRepository<ItemUser, String> {
     
 }
