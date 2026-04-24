@@ -1,12 +1,15 @@
 package chatapp.user.controller;
 
+import authorization.lib.exception.AuthException;
 import authorization.lib.model.JwtClaims;
 import authorization.lib.service.AuthService;
 
 import chatapp.dbManager.table.user.TableUser;
 import chatapp.middleware.APIRequest;
+import chatapp.user.entity.LoginPayload;
 import chatapp.user.entity.RegistrationPayload;
 import chatapp.middleware.ServiceResponse;
+import chatapp.user.service.LoginHandler;
 import chatapp.user.service.RegistrationHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +32,11 @@ public class UserController {
     @Autowired
     private TableUser tableUser;
 
-    //
-    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "api/v1/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> register(@RequestBody RegistrationPayload registrationPayload) {
         try {
 
-            APIRequest apiRequest = new RegistrationHandler(authService,tableUser,registrationPayload);
+            APIRequest apiRequest = new RegistrationHandler(authService, tableUser, registrationPayload);
             return apiRequest.doProcess();
 
         } catch (Exception e) {
@@ -42,17 +44,14 @@ public class UserController {
         }
     }
 
-    //
-    @PostMapping(value = "/validate", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> validate(HttpServletRequest servletRequest, @RequestBody RegistrationPayload registrationPayload) {
+    @PostMapping(value = "api/v1/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> login( @RequestBody LoginPayload loginPayload) {
         try {
-            System.out.println("Registering user");
-            JwtClaims jwtClaims = authService.validateToken(servletRequest);
-            System.out.println("jwtClaims : " + jwtClaims.getIssuer() + " " + jwtClaims.getSubject());
-            HashMap<String, Object> response = new HashMap<>();
-            response.put("claims", jwtClaims);
-            return ServiceResponse.Success(response);
-        } catch (Exception e) {
+
+            APIRequest apiRequest = new LoginHandler(loginPayload,tableUser,authService);
+            return apiRequest.doProcess();
+
+        }catch (Exception e) {
             return ServiceResponse.BadRequest(e.getMessage());
         }
     }

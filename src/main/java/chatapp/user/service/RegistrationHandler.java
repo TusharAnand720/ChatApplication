@@ -13,9 +13,9 @@ import java.util.HashMap;
 
 public class RegistrationHandler implements APIRequest {
 
-    private AuthService authService;
-    private RegistrationPayload registrationPayload;
-    private TableUser tableUser;
+    private final AuthService authService;
+    private final RegistrationPayload registrationPayload;
+    private final TableUser tableUser;
 
     public RegistrationHandler(AuthService authService, TableUser tableUser,RegistrationPayload registrationPayload) {
         this.authService = authService;
@@ -25,7 +25,6 @@ public class RegistrationHandler implements APIRequest {
 
     @Override
     public ResponseEntity<?> doProcess() {
-
         try {
             ItemUser itemUser = tableUser.createItem("ED");
             itemUser.setEmail(registrationPayload.getEmail());

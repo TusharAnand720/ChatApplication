@@ -4,11 +4,13 @@ import chatapp.dbManager.table.AuditFields;
 import chatapp.utility.helper.ServiceHelper;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "User")
 public class ItemUser extends AuditFields {
 
     @Id
+    @Field("userId")
     private String userId;
     private String firstName;
     private String lastName;

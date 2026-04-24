@@ -4,6 +4,10 @@ import java.time.Instant;
 
 public class ServiceHelper {
 
+    public static boolean isAvailable(String str){
+        return true;
+    }
+
     public static String getRandomAlphaNumeric(int length) {
         String alphaNumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         if (length > 30) {

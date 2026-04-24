@@ -30,6 +30,17 @@ public class ServiceResponse {
                 .build();
     }
 
+    public static ResponseEntity<?> Unauthorized(String message) {
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        return new Builder()
+                .success(false)
+                .message(message)
+                .currentDT(new Date().getTime())
+                .responseCode(status.name())
+                .httpStatus(status)
+                .build();
+    }
+
     public static ResponseEntity<?> BadRequest(String message) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         return new Builder()
@@ -45,7 +56,7 @@ public class ServiceResponse {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         return new Builder()
                 .success(false)
-                .message("FAILED")
+                .message(status.name())
                 .currentDT(new Date().getTime())
                 .responseCode(status.name())
                 .httpStatus(status)
