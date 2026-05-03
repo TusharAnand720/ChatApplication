@@ -57,12 +57,12 @@ public class RegistrationHandler implements APIRequest {
 
     private void userExists(String email){
         ItemUser user = tableUser.getUserByEmail(email);
-        BaseValidator.throwExceptionIfTrue(user!=null, ServiceError.ServiceError_user_already_exists_with_email.getMessage());
+        BaseValidator.throwExceptionIfTrue(user!=null, ServiceError.user_already_exists_with_email.getMessage());
     }
     private void validateRequest(RegistrationPayload registrationPayload)throws Exception{
-        BaseValidator.throwExceptionIfNotAvailable(registrationPayload.getEmail(), ServiceError.ServiceError_invalid_email.getMessage());
-        BaseValidator.throwExceptionIfNotAvailable(registrationPayload.getPassword(), ServiceError.ServiceError_invalid_password.getMessage());
-        BaseValidator.throwExceptionIfNotAvailable(registrationPayload.getFirstName(), ServiceError.ServiceError_invalid_firstName.getMessage());
+        BaseValidator.throwExceptionIfNotAvailable(registrationPayload.getEmail(), ServiceError.invalid_email.getMessage());
+        BaseValidator.throwExceptionIfNotAvailable(registrationPayload.getPassword(), ServiceError.invalid_password.getMessage());
+        BaseValidator.throwExceptionIfNotAvailable(registrationPayload.getFirstName(), ServiceError.invalid_firstName.getMessage());
 
     }
 }

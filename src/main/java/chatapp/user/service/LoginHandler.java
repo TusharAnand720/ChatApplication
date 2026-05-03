@@ -47,12 +47,12 @@ public class LoginHandler implements APIRequest {
 
     private ItemUser userExists(String email) throws Exception{
         ItemUser user = tableUser.getUserByEmail(email);
-        BaseValidator.throwExceptionIfTrue(user==null,ServiceError.Service_invalid_userName_or_password.getMessage());
+        BaseValidator.throwExceptionIfTrue(user==null,ServiceError.invalid_userName_or_password.getMessage());
         return user;
     }
 
     private void validateRequest(LoginPayload loginPayload){
-        BaseValidator.throwExceptionIfNotAvailable(loginPayload.getEmail(), ServiceError.ServiceError_invalid_email.getMessage());
-        BaseValidator.throwExceptionIfNotAvailable(loginPayload.getPassword(), ServiceError.ServiceError_invalid_password.getMessage());
+        BaseValidator.throwExceptionIfNotAvailable(loginPayload.getEmail(), ServiceError.invalid_email.getMessage());
+        BaseValidator.throwExceptionIfNotAvailable(loginPayload.getPassword(), ServiceError.invalid_password.getMessage());
     }
 }
