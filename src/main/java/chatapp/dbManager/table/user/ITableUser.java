@@ -7,4 +7,6 @@ public interface ITableUser {
     ItemUser saveItem(ItemUser itemUser,String updatedBy);
 
     ItemUser getUserByEmail(String email);
+
+    ItemUser getUser(String userId);
 }

@@ -10,5 +10,7 @@ public interface UserRepository extends MongoRepository<ItemUser, String> {
 
 //    @Query("{ 'email': ?0 }")
     ItemUser findByEmail(String email);
+
+    ItemUser findByUserId(String userId);
     
 }

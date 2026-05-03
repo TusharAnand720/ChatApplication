@@ -7,6 +7,7 @@ import chatapp.dbManager.table.user.TableUser;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.user.entity.RegistrationPayload;
+import chatapp.user.entity.UserProfileResponse;
 import chatapp.validation.BaseValidator;
 import chatapp.validation.ServiceError;
 import org.springframework.http.ResponseEntity;
@@ -40,11 +41,13 @@ public class RegistrationHandler implements APIRequest {
             itemUser.setLastName(registrationPayload.getLastName());
             tableUser.saveItem(itemUser, "ED");
 
+            UserProfileResponse userProfileResponse = Mapper.mapUserProfile(itemUser);
+
             AuthToken authToken = authService.issueToken(itemUser.getUserId());
 
             HashMap<String, Object> result = new HashMap<>();
-            result.put("user",itemUser);
-            result.put("authToken" , authToken);
+            result.put("user", userProfileResponse);
+            result.put("authToken", authToken);
 
             return ServiceResponse.Success(result);
         }catch (Exception e){
