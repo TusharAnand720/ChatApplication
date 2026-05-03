@@ -27,12 +27,12 @@ public class TableRoom implements ITableRoom{
 
     @Override
     public ItemRoom getItem(String roomId) {
-        return null;
-//        return roomRepository.findById(roomId).get();
+        return roomRepository.findByRoomId(roomId);
     }
 
     @Override
-    public ItemRoom deleteItem(String roomId) {
-        return null;
+    public void deleteItem(ItemRoom itemRoom,String updatedBy) {
+        itemRoom.setActive(false);
+        saveItem(itemRoom,updatedBy);
     }
 }

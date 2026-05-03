@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection = "room")
+@Document(collection = "Room")
 public class ItemRoom extends AuditFields {
 
     @Id

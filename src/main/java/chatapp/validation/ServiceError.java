@@ -7,7 +7,8 @@ public enum ServiceError {
     invalid_password("Invalid password"),
     invalid_firstName("Invalid First Name "),
     invalid_userName_or_password("Invalid user name or password"),
-    invalid_room_name("Invalid Room Name")
+    invalid_room_name("Invalid Room Name"),
+    invalid_room_id("Invalid RoomId")
     ;
 
     private final String message;

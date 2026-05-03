@@ -1,7 +1,9 @@
 package chatapp.dbManager.table.entityuser;
 
 import chatapp.dbManager.repository.EntityUserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TableEntityUser implements ITableEntityUser{
 
     private final EntityUserRepository entityUserRepository;

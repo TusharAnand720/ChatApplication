@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface RoomRepository extends MongoRepository<ItemRoom,String> {
 
-//    @Query()
-//    Optional<ItemRoom> findById(String roomId);
+    @Query("")
+    ItemRoom findByRoomId(String roomId);
 }

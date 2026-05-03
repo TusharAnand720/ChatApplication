@@ -33,7 +33,7 @@ public class CreateRoomRequest implements APIRequest {
     public ResponseEntity<?> doProcess() {
         try{
 
-            validateRoom(roomPayload);
+            validateRequest(roomPayload);
 
             ItemRoom itemRoom = tableRoom.createItem(claims.getSubject());
             itemRoom.setRoomDescription(roomPayload.getRoomDescription());
@@ -53,7 +53,7 @@ public class CreateRoomRequest implements APIRequest {
         }
     }
 
-    private void validateRoom(RoomPayload roomPayload){
+    private void validateRequest(RoomPayload roomPayload){
         BaseValidator.throwExceptionIfNotAvailable(roomPayload.getRoomName(), ServiceError.invalid_room_name.getMessage());
     }
 }

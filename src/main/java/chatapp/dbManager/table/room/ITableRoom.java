@@ -8,5 +8,5 @@ public interface ITableRoom {
 
     ItemRoom getItem(String roomId);
 
-    ItemRoom deleteItem(String roomId);
+    void deleteItem(ItemRoom itemRoom,String updatedBy);
 }

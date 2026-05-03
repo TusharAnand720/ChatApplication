@@ -6,8 +6,7 @@ public class AuditFields {
     private String createdBy;
     private long updatedAt;
     private String updatedBy ;
-    private boolean isActive;
-    private String entityStatus;
+    private boolean isActive = true;
 
     public AuditFields(){
 
@@ -24,7 +23,6 @@ public class AuditFields {
         this.updatedAt = updatedAt;
         this.updatedBy = updatedBy;
         this.isActive = isActive;
-        this.entityStatus = entityStatus;
     }
 
     public long getCreatedAt() {
@@ -65,13 +63,5 @@ public class AuditFields {
 
     public void setActive(boolean active) {
         isActive = active;
-    }
-
-    public String getEntityStatus() {
-        return entityStatus;
-    }
-
-    public void setEntityStatus(String entityStatus) {
-        this.entityStatus = entityStatus;
     }
 }

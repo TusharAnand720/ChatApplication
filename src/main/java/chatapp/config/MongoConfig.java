@@ -15,7 +15,7 @@ public class MongoConfig {
 
     @Bean
     public MongoClient mongoClient() {
-        System.out.println("Connecting to MongoDB!");
+        System.out.println("========= Connecting to MongoDB! =========");
         String connectionString = "mongodb+srv://ChatApplicationService:7a0Vsb2PoMZ2Z73Q@clusterchatapplication.2jijjyi.mongodb.net/?appName=ClusterChatApplication";
 //
         ServerApi serverApi = ServerApi.builder()
