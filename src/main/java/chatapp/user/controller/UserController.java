@@ -27,7 +27,7 @@ public class UserController {
     @Autowired
     private TableUser tableUser;
 
-    @PostMapping(value = "api/v1/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/api/v1/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> register(@RequestBody RegistrationPayload registrationPayload) {
         try {
 
@@ -39,14 +39,14 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "api/v1/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> login( @RequestBody LoginPayload loginPayload) {
+    @PostMapping(value = "/api/v1/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> login(@RequestBody LoginPayload loginPayload) {
         try {
 
             APIRequest apiRequest = new LoginHandler(loginPayload, tableUser, authService);
             return apiRequest.doProcess();
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ServiceResponse.BadRequest(e.getMessage());
         }
     }
