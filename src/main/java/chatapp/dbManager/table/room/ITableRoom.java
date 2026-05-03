@@ -4,8 +4,9 @@ public interface ITableRoom {
 
     ItemRoom createItem(String createdBy);
 
-    ItemRoom saveItem(String createdBy, ItemRoom itemRoom);
+    ItemRoom saveItem(ItemRoom itemRoom,String updatedBy);
 
-    ItemRoom getItemByRoomId(String roomId);
-    
+    ItemRoom getItem(String roomId);
+
+    ItemRoom deleteItem(String roomId);
 }

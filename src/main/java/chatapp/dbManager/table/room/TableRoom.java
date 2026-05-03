@@ -1,54 +1,38 @@
 package chatapp.dbManager.table.room;
 
-import chatapp.dbManager.table.AuditFields;
-import chatapp.utility.helper.ServiceHelper;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import chatapp.dbManager.repository.RoomRepository;
+import org.springframework.stereotype.Service;
 
-@Document(collection = "Room")
-public class TableRoom extends AuditFields {
-    @Id
-    @Field("roomId")
-    private String roomId;
-    private String roomLogo;
-    private String roomName;
-    private String roomDescription;
+@Service
+public class TableRoom implements ITableRoom{
 
-    public TableRoom(String createdBy) {
-        super(createdBy, System.currentTimeMillis());
-        this.roomId = ServiceHelper.createId("ROOM");
+    private final RoomRepository roomRepository;
+
+    public TableRoom(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
     }
 
-    public String getRoomId() {
-        return roomId;
+    @Override
+    public ItemRoom createItem(String createdBy) {
+        return new ItemRoom(createdBy);
     }
 
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
+    @Override
+    public ItemRoom saveItem(ItemRoom itemRoom,String updatedBy) {
+        itemRoom.setUpdatedBy(updatedBy);
+        itemRoom.setUpdatedAt(System.currentTimeMillis());
+        roomRepository.save(itemRoom);
+        return itemRoom;
     }
 
-    public String getRoomLogo() {
-        return roomLogo;
+    @Override
+    public ItemRoom getItem(String roomId) {
+        return null;
+//        return roomRepository.findById(roomId).get();
     }
 
-    public void setRoomLogo(String roomLogo) {
-        this.roomLogo = roomLogo;
-    }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    public String getRoomDescription() {
-        return roomDescription;
-    }
-
-    public void setRoomDescription(String roomDescription) {
-        this.roomDescription = roomDescription;
+    @Override
+    public ItemRoom deleteItem(String roomId) {
+        return null;
     }
 }

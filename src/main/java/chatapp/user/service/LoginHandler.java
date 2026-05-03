@@ -7,6 +7,7 @@ import chatapp.dbManager.table.user.TableUser;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.user.entity.LoginPayload;
+import chatapp.user.entity.UserProfileResponse;
 import chatapp.validation.BaseValidator;
 import chatapp.validation.ServiceError;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +32,12 @@ public class LoginHandler implements APIRequest {
 
             validateRequest(loginPayload);
             ItemUser itemUser = userExists(loginPayload.getEmail());
-
+            UserProfileResponse userProfileResponse = Mapper.mapUserProfile(itemUser);
             AuthToken authToken = authService.issueToken(itemUser.getUserId());
 
             HashMap<String,Object> result = new HashMap<>();
             result.put("authToken",authToken);
-            result.put("user",itemUser);
+            result.put("user",userProfileResponse);
             return ServiceResponse.Success(result);
 
         }catch (Exception e){

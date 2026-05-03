@@ -29,4 +29,9 @@ public class TableUser implements ITableUser{
     public ItemUser getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    @Override
+    public ItemUser getUser(String userId) {
+        return userRepository.findByUserId(userId);
+    }
 }
