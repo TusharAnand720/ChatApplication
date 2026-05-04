@@ -1,6 +1,7 @@
 package chatapp.dbManager.table.message;
 
 import chatapp.dbManager.table.AuditFields;
+import chatapp.utility.helper.ServiceHelper;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -9,25 +10,25 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class ItemMessage extends AuditFields {
 
     @Id
-    @Field("compositeKey")
-    private String compositeKey; // roomId-userId
+    @Field("messageId")
+    private String messageId;
     private String roomId;
     private String userId;
     private String content;
 
-    private ItemMessage(String roomId , String userId , String createdAt){
+    public ItemMessage(String roomId , String userId , String createdAt){
         super(createdAt,System.currentTimeMillis());
         this.roomId = roomId;
         this.userId = userId;
-        this.compositeKey = roomId+"-"+userId;
+        this.messageId = ServiceHelper.createId("MSG");
     }
 
-    public String getCompositeKey() {
-        return compositeKey;
+    public String getMessageId() {
+        return messageId;
     }
 
-    public void setCompositeKey(String compositeKey) {
-        this.compositeKey = compositeKey;
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
     }
 
     public String getRoomId() {
