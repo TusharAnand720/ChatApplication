@@ -26,20 +26,19 @@ public class MessageController {
     @Autowired
     private ProcessMessage processMessage;
 
-    
+
     @MessageMapping("/chat/{roomId}")
-    public void sendMessage(@DestinationVariable String roomId, @Payload MessageRequest messageRequest, Principal principal){
-        try{
-//            String senderId = principal.getName();
-            System.out.println("In controller");
-            processMessage.doProcess(messageRequest,roomId,messagingTemplate,tableMessage);
-        }catch (Exception e){
+    public void sendMessage(@DestinationVariable String roomId, @Payload MessageRequest messageRequest, Principal principal) {
+        try {
+            String senderId = principal.getName();
+            processMessage.doProcess(messageRequest, roomId, senderId, messagingTemplate);
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
 
     @MessageMapping("/chat/join/{roomId}")
-    public void userJoined(@DestinationVariable String roomId, Principal principal){
+    public void userJoined(@DestinationVariable String roomId, Principal principal) {
 
     }
 

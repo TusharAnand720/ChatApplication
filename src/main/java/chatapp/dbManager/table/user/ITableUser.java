@@ -4,9 +4,9 @@ public interface ITableUser {
 
     ItemUser createItem(String createdBy);
 
-    ItemUser saveItem(ItemUser itemUser,String updatedBy);
+    ItemUser saveItem(ItemUser itemUser, String updatedBy);
 
-    ItemUser getUserByEmail(String email);
+    ItemUser readItemByEmail(String email);
 
-    ItemUser getUser(String userId);
+    ItemUser readItem(String userId);
 }

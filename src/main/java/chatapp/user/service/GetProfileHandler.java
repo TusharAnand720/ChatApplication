@@ -20,15 +20,15 @@ public class GetProfileHandler implements APIRequest {
 
     @Override
     public ResponseEntity<?> doProcess() {
-        try{
+        try {
 
-            ItemUser itemUser = tableUser.getUser(userId);
+            ItemUser itemUser = tableUser.readItem(userId);
             UserProfileResponse userProfileResponse = Mapper.mapUserProfile(itemUser);
-            HashMap<String,Object> result = new HashMap<>();
+            HashMap<String, Object> result = new HashMap<>();
             result.put("user", userProfileResponse);
             return ServiceResponse.Success(result);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             return ServiceResponse.BadRequest(e.getMessage());
         }
     }

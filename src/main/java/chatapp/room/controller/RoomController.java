@@ -1,7 +1,7 @@
 package chatapp.room.controller;
 
-import authorization.lib.model.JwtClaims;
-import authorization.lib.service.AuthService;
+import authentication.lib.model.JwtClaims;
+import authentication.lib.service.AuthService;
 import chatapp.dbManager.table.entityuser.TableEntityUser;
 import chatapp.dbManager.table.room.TableRoom;
 import chatapp.middleware.APIRequest;
@@ -14,7 +14,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping(value = "/room")
 @RestController
@@ -33,9 +39,9 @@ public class RoomController {
     public ResponseEntity<?> create(@Autowired HttpServletRequest httpServletRequest, @RequestBody RoomPayload roomPayload) {
         try {
 
-            JwtClaims claims  = authService.validateToken(httpServletRequest);
+            JwtClaims claims = authService.validateToken(httpServletRequest);
 
-            APIRequest apiRequest = new CreateRoomRequest(claims,roomPayload,tableRoom,tableEntityUser);
+            APIRequest apiRequest = new CreateRoomRequest(claims, roomPayload, tableRoom, tableEntityUser);
             return apiRequest.doProcess();
 
         } catch (Exception e) {
@@ -44,12 +50,12 @@ public class RoomController {
     }
 
     @PutMapping(value = "/api/v1/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> update(@Autowired HttpServletRequest httpServletRequest, @RequestParam String roomId ,@RequestBody RoomPayload roomPayload) {
+    public ResponseEntity<?> update(@Autowired HttpServletRequest httpServletRequest, @RequestParam String roomId, @RequestBody RoomPayload roomPayload) {
         try {
 
-            JwtClaims claims  = authService.validateToken(httpServletRequest);
+            JwtClaims claims = authService.validateToken(httpServletRequest);
 
-            APIRequest apiRequest = new UpdateRoomRequest(claims,tableRoom,roomId,roomPayload);
+            APIRequest apiRequest = new UpdateRoomRequest(claims, tableRoom, roomId, roomPayload);
             return apiRequest.doProcess();
 
         } catch (Exception e) {
@@ -62,9 +68,9 @@ public class RoomController {
     public ResponseEntity<?> delete(@Autowired HttpServletRequest httpServletRequest, @RequestParam String roomId) {
         try {
 
-            JwtClaims claims  = authService.validateToken(httpServletRequest);
+            JwtClaims claims = authService.validateToken(httpServletRequest);
 
-            APIRequest apiRequest = new DeleteRoomRequest(claims,roomId,tableRoom);
+            APIRequest apiRequest = new DeleteRoomRequest(claims, roomId, tableRoom);
             return apiRequest.doProcess();
 
         } catch (Exception e) {

@@ -4,7 +4,7 @@ import chatapp.dbManager.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TableRoom implements ITableRoom{
+public class TableRoom implements ITableRoom {
 
     private final RoomRepository roomRepository;
 
@@ -18,7 +18,7 @@ public class TableRoom implements ITableRoom{
     }
 
     @Override
-    public ItemRoom saveItem(ItemRoom itemRoom,String updatedBy) {
+    public ItemRoom saveItem(ItemRoom itemRoom, String updatedBy) {
         itemRoom.setUpdatedBy(updatedBy);
         itemRoom.setUpdatedAt(System.currentTimeMillis());
         roomRepository.save(itemRoom);
@@ -26,13 +26,13 @@ public class TableRoom implements ITableRoom{
     }
 
     @Override
-    public ItemRoom getItem(String roomId) {
+    public ItemRoom readItem(String roomId) {
         return roomRepository.findByRoomId(roomId);
     }
 
     @Override
-    public void deleteItem(ItemRoom itemRoom,String updatedBy) {
+    public void deleteItem(ItemRoom itemRoom, String updatedBy) {
         itemRoom.setActive(false);
-        saveItem(itemRoom,updatedBy);
+        saveItem(itemRoom, updatedBy);
     }
 }

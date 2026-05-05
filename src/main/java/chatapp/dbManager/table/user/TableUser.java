@@ -4,7 +4,7 @@ import chatapp.dbManager.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TableUser implements ITableUser{
+public class TableUser implements ITableUser {
 
     private final UserRepository userRepository;
 
@@ -26,12 +26,12 @@ public class TableUser implements ITableUser{
     }
 
     @Override
-    public ItemUser getUserByEmail(String email) {
+    public ItemUser readItemByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public ItemUser getUser(String userId) {
+    public ItemUser readItem(String userId) {
         return userRepository.findByUserId(userId);
     }
 }

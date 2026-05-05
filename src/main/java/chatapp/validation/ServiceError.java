@@ -8,8 +8,10 @@ public enum ServiceError {
     invalid_firstName("Invalid First Name "),
     invalid_userName_or_password("Invalid user name or password"),
     invalid_room_name("Invalid Room Name"),
-    invalid_room_id("Invalid RoomId")
-    ;
+    invalid_room_id("Invalid RoomId"),
+    invalid_room("Room with this Id does not exist"),
+    invalid_user_id("Invalid UserId"),
+    invalid_user_room("User is not part of this room");
 
     private final String message;
 

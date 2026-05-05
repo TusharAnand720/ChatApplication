@@ -4,7 +4,7 @@ import chatapp.dbManager.repository.EntityUserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TableEntityUser implements ITableEntityUser{
+public class TableEntityUser implements ITableEntityUser {
 
     private final EntityUserRepository entityUserRepository;
 
@@ -14,7 +14,7 @@ public class TableEntityUser implements ITableEntityUser{
 
     @Override
     public ItemEntityUser createItem(String entityId, String userId, String createdBy) {
-        return new ItemEntityUser(entityId,userId,createdBy);
+        return new ItemEntityUser(entityId, userId, createdBy);
     }
 
     @Override
@@ -23,5 +23,11 @@ public class TableEntityUser implements ITableEntityUser{
         itemEntityUser.setUpdatedBy(updatedBy);
         entityUserRepository.save(itemEntityUser);
         return itemEntityUser;
+    }
+
+    @Override
+    public ItemEntityUser readItem(String roomId, String userId) {
+//        return entityUserRepository.findItem(roomId, userId);
+        return null;
     }
 }

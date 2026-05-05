@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TableMessage implements ITableMessage{
+public class TableMessage implements ITableMessage {
 
     private final MessageRepository messageRepository;
 
@@ -15,8 +15,8 @@ public class TableMessage implements ITableMessage{
     }
 
     @Override
-    public ItemMessage createItem(String roomId, String userId,String createdBy) {
-        return new ItemMessage(roomId,userId,createdBy);
+    public ItemMessage createItem(String roomId, String userId, String createdBy) {
+        return new ItemMessage(roomId, userId, createdBy);
 
     }
 
@@ -29,7 +29,7 @@ public class TableMessage implements ITableMessage{
     }
 
     @Override
-    public List<ItemMessage> getItemByPage(int pageNumber, int pageSize, String messageId) {
+    public List<ItemMessage> readItemByPage(int pageNumber, int pageSize, String messageId) {
 //        return messageRepository.getMessage(pageNumber,pageSize,messageId);
         return null;
     }

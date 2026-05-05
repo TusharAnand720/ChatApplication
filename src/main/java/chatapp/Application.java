@@ -1,6 +1,6 @@
 package chatapp;
 
-import authorization.lib.config.AuthAutoConfiguration;
+import authentication.lib.config.AuthAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;

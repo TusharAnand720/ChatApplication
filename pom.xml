@@ -93,11 +93,11 @@
 
 
         <dependency>
-            <groupId>authorization.lib</groupId>
-            <artifactId>authorization-lib</artifactId>
+            <groupId>authentication.lib</groupId>
+            <artifactId>authentication-lib</artifactId>
             <version>0.0.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/authorization-lib-0.0.1.jar</systemPath>
+            <systemPath>${project.basedir}/libs/authentication-lib-0.0.1.jar</systemPath>
         </dependency>
 
     </dependencies>

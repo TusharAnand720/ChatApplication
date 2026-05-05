@@ -1,6 +1,6 @@
 package chatapp.room.service;
 
-import authorization.lib.model.JwtClaims;
+import authentication.lib.model.JwtClaims;
 import chatapp.dbManager.table.room.ItemRoom;
 import chatapp.dbManager.table.room.TableRoom;
 import chatapp.middleware.APIRequest;
@@ -28,26 +28,26 @@ public class UpdateRoomRequest implements APIRequest {
 
     @Override
     public ResponseEntity<?> doProcess() {
-        try{
+        try {
 
             validateRequest(roomPayload);
 
-            ItemRoom itemRoom = tableRoom.getItem(roomId);
-            BaseValidator.throwExceptionIfTrue(itemRoom==null, ServiceError.invalid_room_id.getMessage());
+            ItemRoom itemRoom = tableRoom.readItem(roomId);
+            BaseValidator.throwExceptionIfTrue(itemRoom == null, ServiceError.invalid_room_id.getMessage());
 
             itemRoom.setRoomName(roomPayload.getRoomName());
             itemRoom.setRoomDescription(roomPayload.getRoomDescription());
-            tableRoom.saveItem(itemRoom,claims.getSubject());
+            tableRoom.saveItem(itemRoom, claims.getSubject());
 
-            HashMap<String,Object> result = new HashMap<>();
+            HashMap<String, Object> result = new HashMap<>();
             result.put("itemRoom", itemRoom);
             return ServiceResponse.Success(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ServiceResponse.BadRequest(e.getMessage());
         }
     }
 
-    private void validateRequest(RoomPayload roomPayload){
+    private void validateRequest(RoomPayload roomPayload) {
         BaseValidator.throwExceptionIfNotAvailable(roomPayload.getRoomName(), ServiceError.invalid_room_name.getMessage());
     }
 }

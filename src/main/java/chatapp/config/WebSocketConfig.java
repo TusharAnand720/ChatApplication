@@ -15,7 +15,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         // Client subscribes to /topic/room/{roomId} to receive messages
         registry.enableSimpleBroker("/topic");
 
-        // Client sends messages to /app/chat.send etc.
+        // Client sends messages to /app/chat etc.
         registry.setApplicationDestinationPrefixes("/app");
     }
 
