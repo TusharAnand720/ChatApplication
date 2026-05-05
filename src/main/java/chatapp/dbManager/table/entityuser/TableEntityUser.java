@@ -1,7 +1,11 @@
 package chatapp.dbManager.table.entityuser;
 
 import chatapp.dbManager.repository.EntityUserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TableEntityUser implements ITableEntityUser {
@@ -29,5 +33,11 @@ public class TableEntityUser implements ITableEntityUser {
     public ItemEntityUser readItem(String roomId, String userId) {
 //        return entityUserRepository.findItem(roomId, userId);
         return null;
+    }
+
+    @Override
+    public List<ItemEntityUser> readItemByPage(String roomId, Pageable pageable) {
+        Page<ItemEntityUser> page = entityUserRepository.findMembersByPage(roomId, pageable);
+        return page.getContent();
     }
 }
