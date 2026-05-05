@@ -27,7 +27,7 @@ public class ProcessMessage {
     public void doProcess(MessageRequest messageRequest, String roomId, String userId, SimpMessagingTemplate messagingTemplate) {
         try {
 
-            validateRoomUserMapping(roomId, userId);
+//            validateRoomUserMapping(roomId, userId);
 
             ItemMessage itemMessage = tableMessage.createItem(roomId, userId, userId);
             itemMessage.setContent(messageRequest.getContent());

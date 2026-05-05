@@ -9,8 +9,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
@@ -30,8 +28,8 @@ public class MessageController {
     @MessageMapping("/chat/{roomId}")
     public void sendMessage(@DestinationVariable String roomId, @Payload MessageRequest messageRequest, Principal principal) {
         try {
-            String senderId = principal.getName();
-            processMessage.doProcess(messageRequest, roomId, senderId, messagingTemplate);
+//            String senderId = principal.getName();
+            processMessage.doProcess(messageRequest, roomId, "senderId", messagingTemplate);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
