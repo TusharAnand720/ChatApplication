@@ -1,6 +1,8 @@
 package chatapp.dbManager.table.message;
 
 import chatapp.dbManager.repository.MessageRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,8 +31,8 @@ class TableMessage implements ITableMessage {
     }
 
     @Override
-    public List<ItemMessage> readItemByPage(int pageNumber, int pageSize, String messageId) {
-//        return messageRepository.getMessage(pageNumber,pageSize,messageId);
-        return null;
+    public List<ItemMessage> readItemByPage(String roomId, Pageable pageable) {
+        Page<ItemMessage> page = messageRepository.getChatHistory(roomId, pageable);
+        return page.getContent();
     }
 }

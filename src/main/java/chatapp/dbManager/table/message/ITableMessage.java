@@ -1,5 +1,7 @@
 package chatapp.dbManager.table.message;
 
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 public interface ITableMessage {
@@ -8,6 +10,6 @@ public interface ITableMessage {
 
     ItemMessage saveItem(ItemMessage itemMessage, String updatedBy);
 
-    List<ItemMessage> readItemByPage(int pageNumber, int pageSize, String messageId);
+    List<ItemMessage> readItemByPage(String roomId, Pageable pageable);
 
 }
