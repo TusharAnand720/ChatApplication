@@ -1,43 +1,28 @@
 package chatapp.message.controller;
 
-import chatapp.dbManager.table.message.ITableMessage;
-import chatapp.message.entity.MessageRequest;
-import chatapp.message.service.ProcessMessage;
+import chatapp.middleware.ServiceResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-
-@Controller
+@RequestMapping(value = "/message")
+@RestController
 public class MessageController {
 
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate;
+    @GetMapping(value = "/history", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getMessageHistory(@Autowired HttpServletRequest httpServletRequest, @RequestParam String roomId) {
 
-    @Autowired
-    private ITableMessage tableMessage;
-
-    @Autowired
-    private ProcessMessage processMessage;
-
-
-    @MessageMapping("/chat/{roomId}")
-    public void sendMessage(@DestinationVariable String roomId, @Payload MessageRequest messageRequest, Principal principal) {
         try {
-//            String senderId = principal.getName();
-            processMessage.doProcess(messageRequest, roomId, "senderId", messagingTemplate);
+
+            return null;
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            return ServiceResponse.BadRequest(e.getMessage());
         }
-    }
-
-    @MessageMapping("/chat/join/{roomId}")
-    public void userJoined(@DestinationVariable String roomId, Principal principal) {
 
     }
-
 }

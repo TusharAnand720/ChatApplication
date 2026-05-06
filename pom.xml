@@ -39,17 +39,11 @@
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-test</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
 
         <!-- Gson -->
         <dependency>
@@ -96,8 +90,6 @@
             <groupId>authentication.lib</groupId>
             <artifactId>authentication-lib</artifactId>
             <version>0.0.1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/authentication-lib-0.0.1.jar</systemPath>
         </dependency>
 
     </dependencies>
@@ -105,12 +97,38 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <id>authentication-lib</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>${project.basedir}/libs/authentication-lib-0.0.1.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>authentication.lib</groupId>
+                            <artifactId>authentication-lib</artifactId>
+                            <version>0.0.1</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <includeSystemScope>true</includeSystemScope>
+                    <release>21</release>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
