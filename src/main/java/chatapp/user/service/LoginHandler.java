@@ -10,6 +10,7 @@ import chatapp.user.entity.LoginPayload;
 import chatapp.user.entity.UserProfileResponse;
 import chatapp.validation.BaseValidator;
 import chatapp.validation.ServiceError;
+import chatapp.validation.ServiceException;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class LoginHandler implements APIRequest {
 
             validateRequest(loginPayload);
             ItemUser itemUser = userExists(loginPayload.getEmail());
+            validatePassword(loginPayload.getPassword(),itemUser.getPassword());
             UserProfileResponse userProfileResponse = Mapper.mapUserProfile(itemUser);
             AuthToken authToken = authService.issueToken(itemUser.getUserId());
 
@@ -45,6 +47,9 @@ public class LoginHandler implements APIRequest {
         }
     }
 
+    private void validatePassword(String source , String target) throws ServiceException {
+        BaseValidator.throwExceptionIfTrue(!source.equals(target),ServiceError.invalid_password.getMessage());
+    }
     private ItemUser userExists(String email) throws Exception {
         ItemUser user = tableUser.readItemByEmail(email);
         BaseValidator.throwExceptionIfTrue(user == null, ServiceError.invalid_userName_or_password.getMessage());

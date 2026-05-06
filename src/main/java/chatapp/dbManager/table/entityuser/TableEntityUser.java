@@ -36,6 +36,18 @@ class TableEntityUser implements ITableEntityUser {
     }
 
     @Override
+    public boolean deleteItem(String roomId, String userId, String deletedBy) {
+        ItemEntityUser entityUser = readItem(roomId,userId);
+        if(entityUser==null){
+            return false;
+        }else {
+            entityUser.setActive(false);
+            saveItem(entityUser,deletedBy);
+            return true;
+        }
+    }
+
+    @Override
     public List<ItemEntityUser> readItemByPage(String roomId, Pageable pageable) {
         Page<ItemEntityUser> page = entityUserRepository.findMembersByPage(roomId, pageable);
         return page.getContent();

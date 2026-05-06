@@ -12,5 +12,7 @@ public interface ITableEntityUser {
 
     ItemEntityUser readItem(String roomId, String userId);
 
+    boolean deleteItem(String roomId , String userId, String deletedBy);
+
     List<ItemEntityUser> readItemByPage(String roomId, Pageable pageable);
 }

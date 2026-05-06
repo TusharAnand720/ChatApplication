@@ -9,17 +9,13 @@ import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.room.entity.MemberRequest;
 import chatapp.room.service.AddMemberRequest;
+import chatapp.room.service.DeleteMemberRequest;
 import chatapp.room.service.GetRoomMembersRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "/room-member")
 @RestController
@@ -57,6 +53,20 @@ public class RoomMemberController {
 
             JwtClaims claims = authService.validateToken(httpServletRequest);
             APIRequest apiRequest = new AddMemberRequest(memberRequest, tableRoom, tableEntityUser);
+            return apiRequest.doProcess();
+
+        } catch (Exception e) {
+            return ServiceResponse.BadRequest(e.getMessage());
+        }
+    }
+
+    @DeleteMapping(value = "/api/v1/member", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteMember(@Autowired HttpServletRequest httpServletRequest, @RequestBody MemberRequest memberRequest) {
+
+        try {
+
+            JwtClaims claims = authService.validateToken(httpServletRequest);
+            APIRequest apiRequest = new DeleteMemberRequest(claims,memberRequest,tableRoom,tableUser,tableEntityUser);
             return apiRequest.doProcess();
 
         } catch (Exception e) {

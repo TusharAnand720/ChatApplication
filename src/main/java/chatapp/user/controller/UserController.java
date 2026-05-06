@@ -56,12 +56,12 @@ public class UserController {
     }
 
     @GetMapping(value = "api/v1/profile", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getProfile(HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> getProfile(HttpServletRequest httpServletRequest,@RequestParam String userId) {
         try {
 
             JwtClaims claims = authService.validateToken(httpServletRequest);
 
-            APIRequest apiRequest = new GetProfileHandler(claims.getSubject(), tableUser);
+            APIRequest apiRequest = new GetProfileHandler(userId, tableUser);
             return apiRequest.doProcess();
 
         } catch (Exception e) {
