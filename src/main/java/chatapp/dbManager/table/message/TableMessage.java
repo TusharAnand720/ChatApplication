@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TableMessage implements ITableMessage {
+class TableMessage implements ITableMessage {
 
     private final MessageRepository messageRepository;
 

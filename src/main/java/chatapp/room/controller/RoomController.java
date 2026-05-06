@@ -2,8 +2,8 @@ package chatapp.room.controller;
 
 import authentication.lib.model.JwtClaims;
 import authentication.lib.service.AuthService;
-import chatapp.dbManager.table.entityuser.TableEntityUser;
-import chatapp.dbManager.table.room.TableRoom;
+import chatapp.dbManager.table.entityuser.ITableEntityUser;
+import chatapp.dbManager.table.room.ITableRoom;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.room.entity.RoomPayload;
@@ -30,10 +30,10 @@ public class RoomController {
     private AuthService authService;
 
     @Autowired
-    private TableRoom tableRoom;
+    private ITableRoom tableRoom;
 
     @Autowired
-    private TableEntityUser tableEntityUser;
+    private ITableEntityUser tableEntityUser;
 
     @PostMapping(value = "/api/v1/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create(@Autowired HttpServletRequest httpServletRequest, @RequestBody RoomPayload roomPayload) {

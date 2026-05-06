@@ -1,6 +1,6 @@
 package chatapp.message.controller;
 
-import chatapp.dbManager.table.message.TableMessage;
+import chatapp.dbManager.table.message.ITableMessage;
 import chatapp.message.entity.MessageRequest;
 import chatapp.message.service.ProcessMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class MessageController {
     private SimpMessagingTemplate messagingTemplate;
 
     @Autowired
-    private TableMessage tableMessage;
+    private ITableMessage tableMessage;
 
     @Autowired
     private ProcessMessage processMessage;

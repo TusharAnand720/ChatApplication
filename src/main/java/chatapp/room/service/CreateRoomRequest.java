@@ -1,10 +1,10 @@
 package chatapp.room.service;
 
 import authentication.lib.model.JwtClaims;
+import chatapp.dbManager.table.entityuser.ITableEntityUser;
 import chatapp.dbManager.table.entityuser.ItemEntityUser;
-import chatapp.dbManager.table.entityuser.TableEntityUser;
+import chatapp.dbManager.table.room.ITableRoom;
 import chatapp.dbManager.table.room.ItemRoom;
-import chatapp.dbManager.table.room.TableRoom;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.room.entity.RoomPayload;
@@ -18,11 +18,11 @@ import java.util.HashMap;
 public class CreateRoomRequest implements APIRequest {
 
     private final RoomPayload roomPayload;
-    private final TableRoom tableRoom;
-    private final TableEntityUser entityUser;
+    private final ITableRoom tableRoom;
+    private final ITableEntityUser entityUser;
     private final JwtClaims claims;
 
-    public CreateRoomRequest(JwtClaims claims, RoomPayload roomPayload, TableRoom tableRoom, TableEntityUser entityUser) {
+    public CreateRoomRequest(JwtClaims claims, RoomPayload roomPayload, ITableRoom tableRoom, ITableEntityUser entityUser) {
         this.roomPayload = roomPayload;
         this.tableRoom = tableRoom;
         this.entityUser = entityUser;

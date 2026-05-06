@@ -4,7 +4,7 @@ import chatapp.dbManager.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TableUser implements ITableUser {
+class TableUser implements ITableUser {
 
     private final UserRepository userRepository;
 

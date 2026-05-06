@@ -1,8 +1,8 @@
 package chatapp.room.service;
 
 import authentication.lib.model.JwtClaims;
+import chatapp.dbManager.table.room.ITableRoom;
 import chatapp.dbManager.table.room.ItemRoom;
-import chatapp.dbManager.table.room.TableRoom;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.validation.BaseValidator;
@@ -15,9 +15,9 @@ public class DeleteRoomRequest implements APIRequest {
 
     private JwtClaims claims;
     private String roomId;
-    private TableRoom tableRoom;
+    private ITableRoom tableRoom;
 
-    public DeleteRoomRequest(JwtClaims claims, String roomId, TableRoom tableRoom) {
+    public DeleteRoomRequest(JwtClaims claims, String roomId, ITableRoom tableRoom) {
         this.claims = claims;
         this.roomId = roomId;
         this.tableRoom = tableRoom;

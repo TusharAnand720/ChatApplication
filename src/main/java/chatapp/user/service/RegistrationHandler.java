@@ -2,8 +2,8 @@ package chatapp.user.service;
 
 import authentication.lib.model.AuthToken;
 import authentication.lib.service.AuthService;
+import chatapp.dbManager.table.user.ITableUser;
 import chatapp.dbManager.table.user.ItemUser;
-import chatapp.dbManager.table.user.TableUser;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.user.entity.RegistrationPayload;
@@ -19,9 +19,9 @@ public class RegistrationHandler implements APIRequest {
 
     private final AuthService authService;
     private final RegistrationPayload registrationPayload;
-    private final TableUser tableUser;
+    private final ITableUser tableUser;
 
-    public RegistrationHandler(AuthService authService, TableUser tableUser, RegistrationPayload registrationPayload) {
+    public RegistrationHandler(AuthService authService, ITableUser tableUser, RegistrationPayload registrationPayload) {
         this.authService = authService;
         this.registrationPayload = registrationPayload;
         this.tableUser = tableUser;

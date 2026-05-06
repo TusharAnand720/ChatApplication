@@ -2,7 +2,7 @@ package chatapp.user.controller;
 
 import authentication.lib.model.JwtClaims;
 import authentication.lib.service.AuthService;
-import chatapp.dbManager.table.user.TableUser;
+import chatapp.dbManager.table.user.ITableUser;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.user.entity.LoginPayload;
@@ -28,7 +28,7 @@ public class UserController {
     private AuthService authService;
 
     @Autowired
-    private TableUser tableUser;
+    private ITableUser tableUser;
 
     @PostMapping(value = "/api/v1/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> register(@RequestBody RegistrationPayload registrationPayload) {

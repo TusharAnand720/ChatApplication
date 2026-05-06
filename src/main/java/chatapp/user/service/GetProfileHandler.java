@@ -1,7 +1,7 @@
 package chatapp.user.service;
 
+import chatapp.dbManager.table.user.ITableUser;
 import chatapp.dbManager.table.user.ItemUser;
-import chatapp.dbManager.table.user.TableUser;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.user.entity.UserProfileResponse;
@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 
 public class GetProfileHandler implements APIRequest {
-    private final TableUser tableUser;
+    private final ITableUser tableUser;
     private final String userId;
 
-    public GetProfileHandler(String userId, TableUser tableUser) {
+    public GetProfileHandler(String userId, ITableUser tableUser) {
         this.userId = userId;
         this.tableUser = tableUser;
     }

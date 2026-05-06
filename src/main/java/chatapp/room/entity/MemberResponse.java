@@ -1,6 +1,6 @@
 package chatapp.room.entity;
 
-public class RoomMemberResponse {
+public class MemberResponse {
 
     private String userId;
     private String firstName;

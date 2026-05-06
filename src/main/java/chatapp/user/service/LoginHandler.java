@@ -2,8 +2,8 @@ package chatapp.user.service;
 
 import authentication.lib.model.AuthToken;
 import authentication.lib.service.AuthService;
+import chatapp.dbManager.table.user.ITableUser;
 import chatapp.dbManager.table.user.ItemUser;
-import chatapp.dbManager.table.user.TableUser;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.user.entity.LoginPayload;
@@ -17,10 +17,10 @@ import java.util.HashMap;
 public class LoginHandler implements APIRequest {
 
     private final LoginPayload loginPayload;
-    private final TableUser tableUser;
+    private final ITableUser tableUser;
     private final AuthService authService;
 
-    public LoginHandler(LoginPayload loginPayload, TableUser tableUser, AuthService authService) {
+    public LoginHandler(LoginPayload loginPayload, ITableUser tableUser, AuthService authService) {
         this.loginPayload = loginPayload;
         this.tableUser = tableUser;
         this.authService = authService;

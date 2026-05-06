@@ -1,14 +1,14 @@
 package chatapp.room.service;
 
+import chatapp.dbManager.table.entityuser.ITableEntityUser;
 import chatapp.dbManager.table.entityuser.ItemEntityUser;
-import chatapp.dbManager.table.entityuser.TableEntityUser;
+import chatapp.dbManager.table.room.ITableRoom;
 import chatapp.dbManager.table.room.ItemRoom;
-import chatapp.dbManager.table.room.TableRoom;
+import chatapp.dbManager.table.user.ITableUser;
 import chatapp.dbManager.table.user.ItemUser;
-import chatapp.dbManager.table.user.TableUser;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
-import chatapp.room.entity.RoomMemberResponse;
+import chatapp.room.entity.MemberResponse;
 import chatapp.validation.BaseValidator;
 import chatapp.validation.ServiceError;
 import chatapp.validation.ServiceException;
@@ -26,11 +26,11 @@ public class GetRoomMembersRequest implements APIRequest {
     private String roomId;
     private int pageNumber;
     private int pageSize;
-    private TableEntityUser tableEntityUser;
-    private TableRoom tableRoom;
-    private TableUser tableUser;
+    private ITableEntityUser tableEntityUser;
+    private ITableRoom tableRoom;
+    private ITableUser tableUser;
 
-    public GetRoomMembersRequest(String roomId, int pageNumber, int pageSize, TableEntityUser tableEntityUser, TableRoom tableRoom, TableUser tableUser) {
+    public GetRoomMembersRequest(String roomId, int pageNumber, int pageSize, ITableEntityUser tableEntityUser, ITableRoom tableRoom, ITableUser tableUser) {
         this.roomId = roomId;
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
@@ -41,25 +41,25 @@ public class GetRoomMembersRequest implements APIRequest {
 
     @Override
     public ResponseEntity<?> doProcess() {
-        try{
+        try {
 
             validateRequest(roomId);
 
-            if(pageSize > 10 || pageSize < 1){
+            if (pageSize > 10 || pageSize < 1) {
                 pageSize = 10;
             }
 
             Pageable pageable = PageRequest.of(
-                    pageNumber-1,
+                    pageNumber - 1,
                     pageSize,
-                    Sort.by(Sort.Direction.DESC,"createdAt")
+                    Sort.by(Sort.Direction.DESC, "createdAt")
             );
             List<ItemEntityUser> itemEntityUserList = tableEntityUser.readItemByPage(roomId, pageable);
 
-            List<RoomMemberResponse> roomMemberResponses = new ArrayList<>();
-            for(ItemEntityUser itemEntityUser : itemEntityUserList){
+            List<MemberResponse> roomMemberResponses = new ArrayList<>();
+            for (ItemEntityUser itemEntityUser : itemEntityUserList) {
                 ItemUser itemUser = tableUser.readItem(itemEntityUser.getUserId());
-                RoomMemberResponse roomMemberResponse = new RoomMemberResponse();
+                MemberResponse roomMemberResponse = new MemberResponse();
                 roomMemberResponse.setUserId(itemUser.getUserId());
                 roomMemberResponse.setEmail(itemUser.getEmail());
                 roomMemberResponse.setFirstName(itemUser.getFirstName());
@@ -68,11 +68,11 @@ public class GetRoomMembersRequest implements APIRequest {
             }
 
 
-            HashMap<String , Object> result = new HashMap<>();
-            result.put("members" , roomMemberResponses);
+            HashMap<String, Object> result = new HashMap<>();
+            result.put("members", roomMemberResponses);
             return ServiceResponse.Success(result);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             return ServiceResponse.BadRequest(e.getMessage());
         }
     }
@@ -80,7 +80,7 @@ public class GetRoomMembersRequest implements APIRequest {
     private void validateRequest(String roomId) throws ServiceException {
         BaseValidator.throwExceptionIfNotAvailable(roomId, ServiceError.invalid_room_id.getMessage());
         ItemRoom itemRoom = tableRoom.readItem(roomId);
-        BaseValidator.throwExceptionIfTrue(itemRoom==null , ServiceError.invalid_room.getMessage());
+        BaseValidator.throwExceptionIfTrue(itemRoom == null, ServiceError.invalid_room.getMessage());
     }
 
 }

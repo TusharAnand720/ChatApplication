@@ -1,8 +1,8 @@
 package chatapp.room.service;
 
 import authentication.lib.model.JwtClaims;
+import chatapp.dbManager.table.room.ITableRoom;
 import chatapp.dbManager.table.room.ItemRoom;
-import chatapp.dbManager.table.room.TableRoom;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.room.entity.RoomPayload;
@@ -15,11 +15,11 @@ import java.util.HashMap;
 public class UpdateRoomRequest implements APIRequest {
 
     private JwtClaims claims;
-    private TableRoom tableRoom;
+    private ITableRoom tableRoom;
     private String roomId;
     private RoomPayload roomPayload;
 
-    public UpdateRoomRequest(JwtClaims claims, TableRoom tableRoom, String roomId, RoomPayload roomPayload) {
+    public UpdateRoomRequest(JwtClaims claims, ITableRoom tableRoom, String roomId, RoomPayload roomPayload) {
         this.claims = claims;
         this.tableRoom = tableRoom;
         this.roomId = roomId;

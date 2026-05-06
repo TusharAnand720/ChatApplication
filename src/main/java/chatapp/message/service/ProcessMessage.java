@@ -1,11 +1,11 @@
 package chatapp.message.service;
 
+import chatapp.dbManager.table.entityuser.ITableEntityUser;
 import chatapp.dbManager.table.entityuser.ItemEntityUser;
-import chatapp.dbManager.table.entityuser.TableEntityUser;
+import chatapp.dbManager.table.message.ITableMessage;
 import chatapp.dbManager.table.message.ItemMessage;
-import chatapp.dbManager.table.message.TableMessage;
+import chatapp.dbManager.table.room.ITableRoom;
 import chatapp.dbManager.table.room.ItemRoom;
-import chatapp.dbManager.table.room.TableRoom;
 import chatapp.message.entity.MessageRequest;
 import chatapp.validation.BaseValidator;
 import chatapp.validation.ServiceError;
@@ -18,16 +18,16 @@ import org.springframework.stereotype.Service;
 public class ProcessMessage {
 
     @Autowired
-    private TableMessage tableMessage;
+    private ITableMessage tableMessage;
     @Autowired
-    private TableRoom tableRoom;
+    private ITableRoom tableRoom;
     @Autowired
-    private TableEntityUser tableEntityUser;
+    private ITableEntityUser tableEntityUser;
 
     public void doProcess(MessageRequest messageRequest, String roomId, String userId, SimpMessagingTemplate messagingTemplate) {
         try {
 
-//            validateRoomUserMapping(roomId, userId);
+            validateRoomUserMapping(roomId, userId);
 
             ItemMessage itemMessage = tableMessage.createItem(roomId, userId, userId);
             itemMessage.setContent(messageRequest.getContent());

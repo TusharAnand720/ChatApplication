@@ -4,7 +4,7 @@ import chatapp.dbManager.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TableRoom implements ITableRoom {
+class TableRoom implements ITableRoom {
 
     private final RoomRepository roomRepository;
 
