@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping(value = "/user")
@@ -63,6 +64,21 @@ public class UserController {
             APIRequest apiRequest = new GetProfileHandler(claims.getSubject(), tableUser);
             return apiRequest.doProcess();
 
+        } catch (Exception e) {
+            return ServiceResponse.BadRequest(e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "api/v1/rooms", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getRooms(HttpServletRequest httpServletRequest, @RequestParam String userId) {
+        try {
+
+            JwtClaims claims = authService.validateToken(httpServletRequest);
+
+//            APIRequest apiRequest = new GetProfileHandler(claims.getSubject(), tableUser);
+//            return apiRequest.doProcess();
+
+            return null;
         } catch (Exception e) {
             return ServiceResponse.BadRequest(e.getMessage());
         }
