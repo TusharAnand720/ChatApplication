@@ -36,13 +36,18 @@ class TableEntityUser implements ITableEntityUser {
     }
 
     @Override
+    public List<ItemEntityUser> readItemByUser(String userId) {
+        return entityUserRepository.findByUserId(userId);
+    }
+
+    @Override
     public boolean deleteItem(String roomId, String userId, String deletedBy) {
-        ItemEntityUser entityUser = readItem(roomId,userId);
-        if(entityUser==null){
+        ItemEntityUser entityUser = readItem(roomId, userId);
+        if (entityUser == null) {
             return false;
-        }else {
+        } else {
             entityUser.setActive(false);
-            saveItem(entityUser,deletedBy);
+            saveItem(entityUser, deletedBy);
             return true;
         }
     }

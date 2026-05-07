@@ -2,12 +2,15 @@ package chatapp.user.controller;
 
 import authentication.lib.model.JwtClaims;
 import authentication.lib.service.AuthService;
+import chatapp.dbManager.table.entityuser.ITableEntityUser;
+import chatapp.dbManager.table.room.ITableRoom;
 import chatapp.dbManager.table.user.ITableUser;
 import chatapp.middleware.APIRequest;
 import chatapp.middleware.ServiceResponse;
 import chatapp.user.entity.LoginPayload;
 import chatapp.user.entity.RegistrationPayload;
 import chatapp.user.service.GetProfileHandler;
+import chatapp.user.service.GetRoomsRequest;
 import chatapp.user.service.LoginHandler;
 import chatapp.user.service.RegistrationHandler;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +33,13 @@ public class UserController {
 
     @Autowired
     private ITableUser tableUser;
+
+    @Autowired
+    private ITableEntityUser tableEntityUser;
+
+    @Autowired
+    private ITableRoom tableRoom;
+
 
     @PostMapping(value = "/api/v1/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> register(@RequestBody RegistrationPayload registrationPayload) {
@@ -56,7 +66,7 @@ public class UserController {
     }
 
     @GetMapping(value = "api/v1/profile", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getProfile(HttpServletRequest httpServletRequest,@RequestParam String userId) {
+    public ResponseEntity<?> getProfile(HttpServletRequest httpServletRequest, @RequestParam String userId) {
         try {
 
             JwtClaims claims = authService.validateToken(httpServletRequest);
@@ -70,15 +80,14 @@ public class UserController {
     }
 
     @GetMapping(value = "api/v1/rooms", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getRooms(HttpServletRequest httpServletRequest, @RequestParam String userId) {
+    public ResponseEntity<?> getRooms(HttpServletRequest httpServletRequest) {
         try {
 
             JwtClaims claims = authService.validateToken(httpServletRequest);
 
-//            APIRequest apiRequest = new GetProfileHandler(claims.getSubject(), tableUser);
-//            return apiRequest.doProcess();
+            APIRequest apiRequest = new GetRoomsRequest(claims.getSubject(), tableUser, tableRoom, tableEntityUser);
+            return apiRequest.doProcess();
 
-            return null;
         } catch (Exception e) {
             return ServiceResponse.BadRequest(e.getMessage());
         }

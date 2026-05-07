@@ -14,4 +14,7 @@ public interface EntityUserRepository extends MongoRepository<ItemEntityUser, St
 
     @Query("{ 'entityId' : ?0 }")
     Page<ItemEntityUser> findMembersByPage(String roomId, Pageable pageable);
+
+    @Query("")
+    List<ItemEntityUser> findByUserId(String userId);
 }
